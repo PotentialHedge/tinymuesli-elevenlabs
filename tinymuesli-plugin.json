@@ -1,0 +1,39 @@
+{
+  "id": "elevenlabs",
+  "name": "ElevenLabs Scribe",
+  "version": "0.1.0",
+  "publisher": "PotentialHedge",
+  "description": "Transcribes meetings with ElevenLabs Scribe, in the cloud. Each track is uploaded once the meeting ends; speakers are still told apart on your Mac.",
+  "network": true,
+  "contributes": {
+    "transcription": {
+      "command": ["python3", "main.py"],
+      "live": false
+    },
+    "configuration": {
+      "title": "ElevenLabs Scribe",
+      "properties": {
+        "elevenlabs.apiKey": {
+          "type": "string",
+          "secret": true,
+          "order": 1,
+          "description": "From elevenlabs.io › Developers › API Keys. Kept in your keychain."
+        },
+        "elevenlabs.model": {
+          "type": "string",
+          "enum": ["scribe_v2", "scribe_v1"],
+          "enumDescriptions": ["Scribe v2", "Scribe v1"],
+          "default": "scribe_v2",
+          "order": 2,
+          "description": "The Scribe model."
+        },
+        "elevenlabs.keyterms": {
+          "type": "string",
+          "default": "",
+          "order": 3,
+          "description": "Names and terms Scribe should listen for, separated by commas. ElevenLabs charges 20% more when any are set."
+        }
+      }
+    }
+  }
+}
