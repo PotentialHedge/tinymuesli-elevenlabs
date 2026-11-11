@@ -1,14 +1,19 @@
 {
   "id": "elevenlabs",
   "name": "ElevenLabs Scribe",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "PotentialHedge",
   "description": "Transcribes meetings with ElevenLabs Scribe, in the cloud. Each track is uploaded once the meeting ends; speakers are still told apart on your Mac.",
   "network": true,
   "contributes": {
     "transcription": {
       "command": ["python3", "main.py"],
-      "live": false
+      "live": false,
+      "multilingual": true,
+      "languages": ["en-US", "en-GB", "de-DE", "de-CH", "fr-FR", "it-IT", "es-ES", "pt-PT", "pt-BR", "nl-NL",
+                    "pl-PL", "sv-SE", "da-DK", "nb-NO", "fi-FI", "cs-CZ", "sk-SK", "sl-SI", "hr-HR", "sr-RS",
+                    "hu-HU", "ro-RO", "bg-BG", "el-GR", "et-EE", "lv-LV", "lt-LT", "ru-RU", "uk-UA", "tr-TR",
+                    "ar-SA", "he-IL", "hi-IN", "ja-JP", "ko-KR", "zh-CN", "id-ID", "vi-VN", "th-TH"]
     },
     "configuration": {
       "title": "ElevenLabs Scribe",
@@ -21,9 +26,9 @@
         },
         "elevenlabs.model": {
           "type": "string",
-          "enum": ["scribe_v2", "scribe_v1"],
-          "enumDescriptions": ["Scribe v2", "Scribe v1"],
-          "default": "scribe_v2",
+          "enum": ["scribe_v3", "scribe_v2", "scribe_v1"],
+          "enumDescriptions": ["Scribe v3", "Scribe v2", "Scribe v1 (deprecated)"],
+          "default": "scribe_v3",
           "order": 2,
           "description": "The Scribe model."
         },

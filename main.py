@@ -3,7 +3,8 @@
 
 tinyMuesli sends one JSON request on stdin:
     {"method": "transcribe", "file": "/tmp/….m4a", "language": "de-DE", "detectLanguage": false,
-     "settings": {"elevenlabs.apiKey": "…", "elevenlabs.model": "scribe_v2"}, "apiVersion": 1}
+     "languages": ["de-CH", "en-US"],
+     "settings": {"elevenlabs.apiKey": "…", "elevenlabs.model": "scribe_v3"}, "apiVersion": 1}
 and expects {"phrases": [{"start", "end", "text", "words": [{"text", "start", "end", "confidence"}]}]}
 on stdout. Errors go to stderr with a non-zero exit; tinyMuesli shows them.
 
@@ -46,13 +47,19 @@ def transcribe(request):
         fail("No ElevenLabs API key. Add one in tinyMuesli's Settings › Plugins, "
              "or run: tinymuesli plugin config elevenlabs apiKey YOUR_KEY")
     fields = [
-        ("model_id", settings.get("elevenlabs.model", "scribe_v2")),
+        ("model_id", settings.get("elevenlabs.model", "scribe_v3")),
         ("timestamps_granularity", "word"),
         ("diarize", "false"),  # tinyMuesli identifies speakers itself
         ("tag_audio_events", "false"),
     ]
     if not request.get("detectLanguage", True) and request.get("language"):
         fields.append(("language_code", request["language"].split("-")[0]))
+    else:
+        # The languages the user said their meetings are in. Scribe takes only one language_code, so
+        # with one it's a hint; with several it's left to detect them, switching mid-sentence too.
+        spoken = {tag.split("-")[0] for tag in request.get("languages") or []}
+        if len(spoken) == 1:
+            fields.append(("language_code", spoken.pop()))
     for term in (settings.get("elevenlabs.keyterms") or "").split(","):
         if term.strip():
             fields.append(("keyterms", term.strip()))

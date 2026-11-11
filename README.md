@@ -8,7 +8,8 @@ A [tinyMuesli](https://tinymuesli.potentialhedge.com) plugin that transcribes yo
 - **Speakers:** still worked out on your Mac by tinyMuesli, so recognising voices from earlier meetings
   keeps working.
 - **Language:** with the language on System Default, Scribe detects it itself, including meetings that
-  change language partway through.
+  switch between languages, even mid-sentence. If you told tinyMuesli your meetings are in just one
+  language, Scribe is told that one.
 
 Your meeting audio goes to ElevenLabs. See their [privacy policy](https://elevenlabs.io/privacy-policy).
 
@@ -30,7 +31,7 @@ Then choose **ElevenLabs Scribe** under Settings › Recording › Transcription
 | Setting | |
 |---|---|
 | `elevenlabs.apiKey` | From elevenlabs.io › Developers › API Keys. Kept in your keychain. |
-| `elevenlabs.model` | `scribe_v2` (default) or `scribe_v1` |
+| `elevenlabs.model` | `scribe_v3` (default), `scribe_v2` or `scribe_v1` (deprecated) |
 | `elevenlabs.keyterms` | Names and terms to listen for, separated by commas. ElevenLabs charges 20% more when any are set. |
 
 ## How it works
